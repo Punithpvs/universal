@@ -1,177 +1,652 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Management System Introduction</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #141e30, #243b55);
-            color: white;
-        }
-        .header {
-            background: #002147;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-            position: relative;
-            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
-        }
-        .header img {
-            position: absolute;
-            left: 20px;
-            top: 10px;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
-            transition: transform 0.3s ease-in-out;
-            animation: roll 8s linear infinite;
-        }
-        @keyframes roll {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            margin-top: 20px;
-        }
-        h1, h2 {
-            text-align: center;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
-        }
-        .profile {
-            text-align: center;
-            padding: 20px;
-        }
-        .profile img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #ffffff;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.6);
-            margin-bottom: 15px;
-            transition: transform 0.4s ease-in-out;
-        }
-        .profile img:hover {
-            transform: scale(1.1);
-        }
-        .profile h3 {
-            font-size: 24px;
-            margin: 10px 0;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
-        }
-        .profile p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .highlight {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px auto;
-            width: 80%;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
-        }
-        video {
-            width: 80%;
-            max-width: 700px;
-            border: 3px solid #ffffff;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
-        }
-        .footer {
-            background: #002147;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 14px;
-            box-shadow: 0px -4px 10px rgba(255, 255, 255, 0.3);
-        }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Universal Pre University College – Result Portal</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{--gold:#f5c518;--gold2:#e6a817;--navy:#0a1628;--navy3:#1a3a6b;--accent:#2563eb;}
+    body{min-height:100vh;background:var(--navy);font-family:'Poppins',sans-serif;overflow-x:hidden;}
+    .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+    .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle ease-in-out infinite;}
+    @keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.9;transform:scale(1.5);}}
+    #particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+    .particle{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0;}
+    @keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:.6;}90%{opacity:.3;}100%{transform:translateY(-10vh) scale(1);opacity:0;}}
+    .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px 60px;}
+    /* Header */
+    .college-header{text-align:center;margin-bottom:36px;animation:slideDown .8s ease;}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-40px);}to{opacity:1;transform:translateY(0);}}
+    .emblem{width:90px;height:90px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.6rem;margin:0 auto 16px;box-shadow:0 0 0 6px rgba(245,197,24,.15),0 0 40px rgba(245,197,24,.35);animation:glow 3s ease-in-out infinite;overflow:hidden;}
+    @keyframes glow{0%,100%{box-shadow:0 0 0 6px rgba(245,197,24,.15),0 0 40px rgba(245,197,24,.35);}50%{box-shadow:0 0 0 14px rgba(245,197,24,.07),0 0 80px rgba(245,197,24,.55);}}
+    .college-name{font-size:1.9rem;font-weight:800;color:#fff;line-height:1.2;}
+    .college-name span{color:var(--gold);}
+    .college-sub{color:#94a3b8;font-size:.82rem;margin-top:6px;letter-spacing:2.5px;text-transform:uppercase;}
+    .divider-line{width:180px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 0;border-radius:2px;}
+    /* Card */
+    .main-card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:40px 36px;width:100%;max-width:520px;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:fadeUp .9s ease .2s both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+    .portal-title{text-align:center;margin-bottom:28px;}
+    .portal-title h2{color:#fff;font-size:1.25rem;font-weight:700;}
+    .portal-title p{color:#64748b;font-size:.82rem;margin-top:4px;}
+    /* Course selector */
+    .course-label{display:block;color:var(--gold);font-size:.78rem;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+    .course-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+    .course-btn{padding:14px 10px;border-radius:12px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#94a3b8;font-size:.92rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;transition:all .25s;letter-spacing:.5px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .course-btn .ci{font-size:1.6rem;}
+    .course-btn:hover{border-color:var(--gold);color:#fff;background:rgba(245,197,24,.08);}
+    .course-btn.active{border-color:var(--gold);background:linear-gradient(135deg,rgba(245,197,24,.18),rgba(245,197,24,.06));color:var(--gold);box-shadow:0 0 20px rgba(245,197,24,.2);}
+    /* Input */
+    .input-group{margin-bottom:16px;}
+    .input-group label{display:block;color:var(--gold);font-size:.78rem;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+    .input-wrap{position:relative;}
+    .input-wrap .icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:1.2rem;pointer-events:none;}
+    .input-wrap input{width:100%;padding:15px 16px 15px 48px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;color:#fff;font-size:1.05rem;font-family:'Poppins',sans-serif;font-weight:600;outline:none;transition:border .3s,background .3s;letter-spacing:2px;}
+    .input-wrap input::placeholder{color:#475569;font-weight:400;letter-spacing:1px;}
+    .input-wrap input:focus{border-color:var(--gold);background:rgba(245,197,24,.05);}
+    /* Button */
+    .result-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:12px;font-size:1rem;font-weight:800;font-family:'Poppins',sans-serif;cursor:pointer;letter-spacing:1px;transition:transform .2s,box-shadow .2s,opacity .2s;box-shadow:0 8px 30px rgba(245,197,24,.35);display:flex;align-items:center;justify-content:center;gap:10px;}
+    .result-btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(245,197,24,.55);}
+    .result-btn:active{transform:translateY(0);}
+    .result-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+    .spinner{width:20px;height:20px;border:3px solid rgba(0,0,0,.2);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;display:none;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    /* Error */
+    .error-box{display:none;margin-top:18px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:14px 18px;text-align:center;color:#fca5a5;font-size:.88rem;animation:shake .4s ease;}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+    /* Result card */
+    .result-card{display:none;margin-top:28px;border-radius:18px;overflow:hidden;border:1px solid rgba(245,197,24,.2);animation:zoomIn .5s cubic-bezier(.34,1.56,.64,1);}
+    @keyframes zoomIn{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
+    .result-top{background:linear-gradient(135deg,var(--navy3),var(--accent));padding:22px 24px 18px;text-align:center;position:relative;}
+    .result-top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),#fff,var(--gold));}
+    .result-top .trophy{font-size:2rem;margin-bottom:6px;}
+    .result-top .trophy img{width:56px;height:56px;object-fit:contain;border-radius:50%;}
+    .result-top h3{color:#fff;font-size:1.1rem;font-weight:700;}
+    .result-top .reg-tag{display:inline-block;background:rgba(255,255,255,.15);color:var(--gold);font-size:.78rem;padding:3px 14px;border-radius:20px;margin-top:4px;font-weight:600;letter-spacing:1.5px;}
+    .course-tag{display:inline-block;background:rgba(245,197,24,.15);color:#fff;font-size:.7rem;padding:2px 12px;border-radius:20px;margin-top:4px;font-weight:600;letter-spacing:1px;margin-left:6px;}
+    .subjects-wrap{background:rgba(10,22,40,.85);padding:20px;}
+    .sub-title{color:#64748b;font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+    .subjects-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .sub-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;}
+    .sub-item .sname{color:#94a3b8;font-size:.78rem;}
+    .sub-item .smark{color:#fff;font-weight:700;font-size:1rem;}
+    .sub-item .smark.pass{color:#4ade80;}
+    .sub-item .smark.fail{color:#f87171;}
+    .totals-bar{background:rgba(10,22,40,.95);border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-around;padding:18px;gap:10px;}
+    .tot-item{text-align:center;}
+    .tot-item .tlabel{color:#64748b;font-size:.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+    .tot-item .tvalue{font-size:1.4rem;font-weight:800;}
+    .tot-item .tvalue.tc{color:#60a5fa;}
+    .tot-item .tvalue.tp{color:#4ade80;}
+    .tot-divider{width:1px;background:rgba(255,255,255,.08);}
+    .grade-bar{text-align:center;padding:14px;font-size:.95rem;font-weight:700;border-top:1px solid rgba(255,255,255,.06);background:rgba(10,22,40,.95);letter-spacing:.5px;}
+    .download-btn{width:100%;padding:13px;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:12px;font-size:.95rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;letter-spacing:1px;margin-top:0;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .download-btn:hover{background:var(--gold);color:var(--navy);transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,197,24,.4);}
+    .footer{margin-top:40px;text-align:center;color:#334155;font-size:.75rem;animation:fadeUp 1s ease .5s both;}
+    @media(max-width:480px){.main-card{padding:28px 20px;}.college-name{font-size:1.4rem;}.subjects-grid{grid-template-columns:1fr;}.course-btns{grid-template-columns:1fr 1fr;}}
+
+    /* PDF styles */
+    #pdfTemplate{position:fixed;left:-9999px;top:0;width:620px;background:#0a1628;font-family:'Poppins',sans-serif;display:none;}
+    .pdf-header{background:linear-gradient(135deg,#0a1628,#1a3a6b);padding:28px 40px 20px;text-align:center;border-bottom:3px solid #f5c518;position:relative;}
+    .pdf-pvs{position:absolute;top:14px;left:18px;width:44px;height:44px;background:linear-gradient(135deg,#f5c518,#e6a817);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:#0a1628;letter-spacing:1px;}
+    .pdf-emblem{width:70px;height:70px;background:linear-gradient(135deg,#f5c518,#e6a817);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;overflow:hidden;}
+    .pdf-emblem img{width:70px;height:70px;object-fit:contain;}
+    .pdf-college{color:#fff;font-size:1.3rem;font-weight:800;}
+    .pdf-college span{color:#f5c518;}
+    .pdf-sub{color:#94a3b8;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+    .pdf-divider{width:120px;height:2px;background:linear-gradient(90deg,transparent,#f5c518,transparent);margin:10px auto 0;}
+    .pdf-title{color:#f5c518;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:12px;}
+    .pdf-course-badge{display:inline-block;background:rgba(245,197,24,.15);border:1px solid rgba(245,197,24,.3);color:#f5c518;font-size:.65rem;padding:3px 14px;border-radius:20px;margin-top:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+    .pdf-student{background:linear-gradient(135deg,#1a3a6b,#2563eb);padding:20px 40px 16px;text-align:center;position:relative;}
+    .pdf-student::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f5c518,#fff,#f5c518);}
+    .pdf-name{color:#fff;font-size:1.2rem;font-weight:800;}
+    .pdf-regno{display:inline-block;background:rgba(255,255,255,.15);color:#f5c518;font-size:.72rem;padding:3px 14px;border-radius:20px;margin-top:6px;font-weight:600;letter-spacing:1.5px;}
+    .pdf-body{padding:22px 40px;}
+    .pdf-section-title{color:#64748b;font-size:.65rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:600;}
+    .pdf-subjects{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
+    .pdf-sub-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;}
+    .pdf-sub-name{color:#94a3b8;font-size:.75rem;}
+    .pdf-sub-mark{font-weight:700;font-size:.95rem;}
+    .pdf-sub-mark.pass{color:#4ade80;}
+    .pdf-sub-mark.fail{color:#f87171;}
+    .pdf-totals{display:flex;justify-content:space-around;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:14px;}
+    .pdf-tot{text-align:center;}
+    .pdf-tot-label{color:#64748b;font-size:.65rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+    .pdf-tot-value{font-size:1.3rem;font-weight:800;}
+    .pdf-tot-value.tc{color:#60a5fa;}
+    .pdf-tot-value.tp{color:#4ade80;}
+    .pdf-tot-divider{width:1px;background:rgba(255,255,255,.1);}
+    .pdf-grade{text-align:center;padding:12px;font-size:.9rem;font-weight:800;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+    .pdf-footer{background:rgba(0,0,0,.3);padding:14px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.06);margin-top:18px;}
+    .pdf-footer-left{color:#475569;font-size:.65rem;}
+    .pdf-footer-right{color:#475569;font-size:.65rem;text-align:right;}
+    .pdf-stamp{text-align:center;padding:8px;}
+    .pdf-stamp-text{color:#334155;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;}
+
+    .rc-body{background:rgba(8,18,36,.95);}
+    .rc-sec-title{color:#475569;font-size:.62rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;padding:14px 18px 8px;}
+    .marks-tbl{width:100%;border-collapse:collapse;}
+    .marks-tbl thead{background:rgba(255,255,255,.03);}
+    .marks-tbl thead th{padding:9px 8px;font-size:.67rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);}
+    .marks-tbl .th-subj{color:#64748b;text-align:left;padding-left:16px;}
+    .marks-tbl .th-theory{color:#60a5fa;text-align:center;width:82px;}
+    .marks-tbl .th-prac{color:#a78bfa;text-align:center;width:82px;}
+    .marks-tbl tbody tr{border-bottom:1px solid rgba(255,255,255,.04);}
+    .marks-tbl tbody tr:last-child{border-bottom:none;}
+    .marks-tbl tbody td{padding:9px 8px;vertical-align:middle;}
+    .marks-tbl .td-subj{color:#cbd5e1;font-size:.86rem;padding-left:16px;}
+    .marks-tbl .td-theory,.marks-tbl .td-prac{text-align:center;font-weight:700;font-size:1rem;}
+    .mark-pass{color:#4ade80;} .mark-fail{color:#f87171;} .mark-dash{color:#2a3a4a;}
+    .rc-totals{background:rgba(4,10,22,.98)!important;border-top:2px solid rgba(245,197,24,.12);display:flex;justify-content:space-around;align-items:center;padding:18px 6px;}
+    .rc-tot{text-align:center;}
+    .rc-tot .t-lbl{color:#475569;font-size:.62rem;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;}
+    .rc-tot .t-val{font-size:1.28rem;font-weight:800;}
+    .t-blue{color:#60a5fa;} .t-green{color:#4ade80;}
+    .tot-divider{width:1px;height:38px;background:rgba(255,255,255,.07);}
+    .rc-grade-bar{text-align:center;padding:13px;font-size:.94rem;font-weight:700;border-top:1px solid rgba(255,255,255,.05);background:rgba(4,10,22,.98);}
+    .rc-dl-btn{width:100%;padding:15px;background:rgba(245,197,24,.05);color:var(--gold);border:none;border-top:1px solid rgba(245,197,24,.15);font-size:.92rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;letter-spacing:.8px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .rc-dl-btn:hover{background:var(--gold);color:var(--navy);}
+    .pdf-marks-tbl{width:100%;border-collapse:collapse;margin-bottom:18px;}
+    .pdf-marks-tbl thead th{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:9px 12px;font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+    .pdf-marks-tbl .pmh-s{color:#64748b;text-align:left;}
+    .pdf-marks-tbl .pmh-t{color:#60a5fa;text-align:center;width:95px;}
+    .pdf-marks-tbl .pmh-p{color:#a78bfa;text-align:center;width:95px;}
+    .pdf-marks-tbl tbody tr:nth-child(odd){background:rgba(255,255,255,.04);}
+    .pdf-marks-tbl tbody tr:nth-child(even){background:rgba(255,255,255,.018);}
+    .pdf-marks-tbl tbody td{border:1px solid rgba(255,255,255,.06);padding:10px 12px;font-size:.8rem;}
+    .pdf-marks-tbl .pmd-s{color:#94a3b8;}
+    .pdf-marks-tbl .pmd-t,.pdf-marks-tbl .pmd-p{text-align:center;font-weight:700;font-size:.9rem;}
+    .pdf-marks-tbl .pass{color:#4ade80;} .pdf-marks-tbl .fail{color:#f87171;} .pdf-marks-tbl .dash{color:#334155;}
+    .pdf-subtotals{display:flex;justify-content:space-around;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:12px;margin-top:12px;}
+    .pdf-stot{text-align:center;}
+    .pdf-stot-label{color:#475569;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+    .pdf-stot-value{font-size:1rem;font-weight:700;}
+
+
+/* ── POPUP ── */
+    .popup-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.75);
+      z-index:9998; display:flex; align-items:center; justify-content:center;
+      backdrop-filter:blur(6px);
+      animation:popFadeIn .4s ease;
+    }
+    @keyframes popFadeIn  { from{opacity:0;}             to{opacity:1;} }
+    @keyframes popFadeOut { from{opacity:1;}             to{opacity:0;} }
+    @keyframes popZoomOut { from{opacity:1;transform:scale(1);} to{opacity:0;transform:scale(.7);} }
+    .popup-overlay.closing { animation:popFadeOut .3s ease forwards; }
+    .popup-overlay.closing .popup-box { animation:popZoomOut .3s ease forwards; }
+    .popup-overlay.hidden  { display:none !important; }
+    .popup-box {
+      background:linear-gradient(135deg,var(--navy3),var(--navy4));
+      border:1px solid rgba(245,197,24,.3);
+      border-radius:28px;
+      padding:50px 44px 40px;
+      max-width:420px; width:90%;
+      text-align:center;
+      position:relative;
+      box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(245,197,24,.08);
+      animation:popZoomIn .45s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes popZoomIn { from{opacity:0;transform:scale(.7);} to{opacity:1;transform:scale(1);} }
+    .popup-close {
+      position:absolute; top:16px; right:18px;
+      width:32px; height:32px; background:rgba(255,255,255,.08);
+      border:none; color:var(--muted); font-size:1.1rem;
+      border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:all .2s;
+    }
+    .popup-close:hover { background:rgba(239,68,68,.2); color:#f87171; transform:rotate(90deg); }
+    .popup-logo {
+      width:80px; height:80px;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      margin:0 auto 18px; overflow:hidden;
+      box-shadow:0 0 0 6px rgba(245,197,24,.12),0 0 40px rgba(245,197,24,.3);
+      animation:glow 3s ease-in-out infinite;
+    }
+    .popup-logo img { width:76px; height:76px; object-fit:contain; border-radius:50%; }
+    .popup-college { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:900; color:#fff; margin-bottom:6px; }
+    .popup-college span { color:var(--gold); }
+    .popup-est { font-size:.7rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:24px; }
+    .popup-banner {
+      background:linear-gradient(135deg,rgba(245,197,24,.15),rgba(245,197,24,.05));
+      border:1px solid rgba(245,197,24,.3);
+      border-radius:14px; padding:20px 18px; margin-bottom:24px;
+    }
+    .popup-banner .pulse-dot {
+      width:10px; height:10px; background:#4ade80; border-radius:50%;
+      display:inline-block; margin-right:8px; animation:pulse 1.5s infinite;
+      vertical-align:middle;
+    }
+    .popup-banner h3 {
+      color:var(--gold); font-family:'Playfair Display',serif;
+      font-size:1.4rem; margin:10px 0 6px;
+    }
+    .popup-banner p { color:#e2e8f0; font-size:.85rem; line-height:1.6; }
+    .popup-cta {
+      display:inline-flex; align-items:center; gap:8px;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:var(--navy); padding:12px 30px; border-radius:10px;
+      font-weight:800; font-size:.92rem; text-decoration:none;
+      letter-spacing:.5px; transition:all .2s;
+      box-shadow:0 8px 24px rgba(245,197,24,.35);
+    }
+    .popup-cta:hover { transform:translateY(-2px); box-shadow:0 14px 36px rgba(245,197,24,.5); }
+    .popup-dismiss { display:block; margin-top:14px; color:var(--muted); font-size:.75rem; cursor:pointer; background:none; border:none; }
+    .popup-dismiss:hover { color:#fff; }
+	
+  </style>
 </head>
 <body>
 
-    <div class="header">
-       <h1>Universal </h1><br><h1>Pre-University College</h1>
-        <h2>(Recognised by Government of Karnataka)</h2>
-        <img src="clg.jpg" alt="College Logo">       
+
+<div class="popup-overlay" id="admissionPopup" style="display:flex;">
+  <div class="popup-box">
+    <button class="popup-close" onclick="document.getElementById('admissionPopup').style.display='none';document.body.style.overflow='';" title="Close">✕</button>
+    <div class="popup-logo">
+      <img src="https://drive.google.com/thumbnail?id=1KPSwdhadz61LRYpt-ZNN_ls9gQFr_I65&sz=w200" alt="🎓"/>
+    </div>
+    <div class="popup-college"><span>Universal</span> Pre University College</div>
+    <div class="popup-banner">
+      <div><span class="pulse-dot"></span><small style="color:#4ade80;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Now Open</small></div>
+      <p class="popup-cta">Admissions Open</p>
+      <p>2026 – 27 Academic Year<br/>Commerce &amp; Science Streams</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="stars" id="stars"></div>
+<div id="particles"></div>
+
+<div class="page">
+  <div class="college-header">
+    <div class="emblem">
+      <img id="headerLogo" src="https://drive.google.com/thumbnail?id=1KPSwdhadz61LRYpt-ZNN_ls9gQFr_I65&sz=w200" alt="Logo" style="width:90px;height:90px;object-fit:contain;border-radius:50%;">
+    </div>
+    <div class="college-name"><span>Universal</span> Pre University College</div>
+    <div class="college-sub">Excellence in Education</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="main-card">
+    <div class="portal-title">
+      <h2>📋 Student Result Portal</h2>
+      <p>Select your course and enter registration number</p>
     </div>
 
-    <div class="container">
-        <h2>About Our College</h2>
-        <p>
-            Our college is dedicated to providing high-quality education and fostering innovation. 
-            With a strong focus on academic excellence and student success, we offer a wide range 
-            of programs and advanced facilities to support learning.
-        </p>
+    <!-- Course Selector -->
+    <div class="input-group">
+      <label class="course-label">Select Course</label>
+      <div class="course-btns">
+        <button class="course-btn" id="btn-commerce" onclick="selectCourse('commerce')">
+          <span class="ci">📊</span>Commerce
+        </button>
+        <button class="course-btn" id="btn-science" onclick="selectCourse('science')">
+          <span class="ci">🔬</span>Science
+        </button>
+      </div>
+    </div>
 
-        <!-- Principal Section -->
-        <div class="profile">
-            <img src="sir.jpg" alt="Chethan Kumar K L">
-            <h3>Sir Chethan Kumar K L</h3>
-            <p><strong>Principal</strong></p>
-            
-            <div class="highlight">🌟 Visionary Leader guiding Universal PU College towards excellence</div>
-            <div class="highlight">📚 Over 8 years of experience in academic leadership</div>
-            <div class="highlight">🤝 Dedicated to student empowerment and holistic development</div>
-            <div class="highlight">🏆 Strong advocate of innovation and research in education</div>
+    <!-- Reg No Input -->
+    <div class="input-group">
+      <label>Registration Number</label>
+      <div class="input-wrap">
+        <span class="icon">🪪</span>
+        <input type="text" id="regInput" placeholder="e.g. 26BR020300000"
+               onkeydown="if(event.key==='Enter') searchResult()" autocomplete="off"/>
+      </div>
+    </div>
+
+    <button class="result-btn" id="searchBtn" onclick="searchResult()">
+      <div class="spinner" id="spinner"></div>
+      <span id="btnText">🔍 VIEW MY RESULT</span>
+    </button>
+
+    <div class="error-box" id="errorBox">❌ Registration number not found.<br/>Please check and try again.</div>
+    <div class="result-card" id="resultCard"></div>
+  </div>
+
+  <div class="footer"></div>
+</div>
+
+<div id="pdfTemplate"></div>
+
+<script>
+  const SHEETS = {
+    commerce: "13rUjtvFAx17Imxrnc1e45DwcsSFpJ6Wn",
+    science:  "1dJtWLsavbcjeARpW9Vzq-4zpDwriTngI"
+  };
+  const LOGO_ID = "1KPSwdhadz61LRYpt-ZNN_ls9gQFr_I65";
+
+  // Subject config — tKey/pKey must EXACTLY match Google Sheet column headers
+  // SCIENCE: Kannada/Hindi Theory | Kannada/Hindi Practical | English Theory | English Practical |
+  //          Physics Theory | Physics Practical |Chemistry Theory | Chemistry Practical |
+  //          Mathematics Theory | Mathematics  Practical|  Bio/Cs Theory | Bio/Cs Practical
+  // COMMERCE: update tKey to match your commerce sheet headers
+  const SUBJECTS = {
+    science: [
+      { name:"Kannada/Hindi", tKey:"Kannada/Hindi Theory", pKey:"Kannada/Hindi Practical", tMax:80, pMax:20 },
+      { name:"English",       tKey:"English Theory",       pKey:"English Practical",       tMax:80, pMax:20 },   
+      { name:"Physics",       tKey:"Physics Theory",       pKey:"Physics Practical",       tMax:70, pMax:30 },
+      { name:"Chemistry",     tKey:"Chemistry Theory",     pKey:"Chemistry Practical",     tMax:70, pMax:30 },
+       { name:"Mathematics",   tKey:"Mathematics Theory",   pKey:"Mathematics  Practical",   tMax:80, pMax:20 },
+      { name:"Bio / CS",      tKey:"Bio/Cs Theory",        pKey:"Bio/Cs Practical",        tMax:70, pMax:30 }
+    ],
+    commerce: [
+      { name:"Kannada/Hindi",          tKey:"Kannada/Hindi",                      pKey:"Kannada Practical",          tMax:80, pMax:20 },
+      { name:"English",          tKey:"English",                      pKey:"English Practical",          tMax:80, pMax:20 },
+      { name:"Economics",        tKey:"Economics",                    pKey:"Economics Practical",        tMax:80, pMax:20 },
+      { name:"Business Studies", tKey:"Business Studies",             pKey:"Business Studies Practical", tMax:80, pMax:20 },
+       { name:"Accountancy",      tKey:"Accountancy",                  pKey:"Accountancy Practical",      tMax:80, pMax:20 },
+      { name:"Computer Science", tKey:"Computer Science",             pKey:"Computer Science Practical", tMax:70, pMax:30 }
+    ]
+  };
+
+  let selectedCourse = null, courseData = { commerce:null, science:null };
+  let logoBase64 = null, currentStudent = null;
+
+  function gv(row, key) {
+    if (!key) return '';
+    if (row[key] !== undefined) return row[key];
+    const lk = key.trim().toLowerCase();
+    const k  = Object.keys(row).find(k => k.trim().toLowerCase() === lk);
+    return k !== undefined ? row[k] : '';
+  }
+  function nm(v) { const n = parseFloat(String(v).replace(/,/g,'')); return isNaN(n) ? 0 : n; }
+
+  function calcStats(s) {
+    const keys    = Object.keys(s);
+    const regKey  = keys[0];
+    const nameKey = keys.find(k => k.trim() === 'Student Name');
+    const subs    = SUBJECTS[selectedCourse] || [];
+    let tSum=0, pSum=0, tMax=0, pMax=0;
+    const subData = subs.map(sub => {
+      const tv = nm(gv(s, sub.tKey));
+      const pv = sub.pKey ? nm(gv(s, sub.pKey)) : 0;
+      tSum += tv; pSum += pv; tMax += sub.tMax; pMax += sub.pMax;
+      return { name:sub.name, tv, pv, tMax:sub.tMax, pMax:sub.pMax, hasPrac:!!sub.pKey };
+    });
+    const total = tSum + pSum, maxT = tMax + pMax;
+    const pct   = maxT > 0 ? (total / maxT) * 100 : 0;
+    let gl, gs, gc;
+    if      (pct >= 90){ gl='🏆 Outstanding';    gs='O'; gc='#facc15'; }
+    else if (pct >= 75){ gl='⭐ Excellent';       gs='A'; gc='#4ade80'; }
+    else if (pct >= 60){ gl='👍 Good';            gs='B'; gc='#60a5fa'; }
+    else if (pct >= 50){ gl='✅ Average';         gs='C'; gc='#a78bfa'; }
+    else               { gl='⚠️ Below Average';  gs='D'; gc='#fb923c'; }
+    return { regKey, nameKey, subData, tSum, pSum, total, tMax, pMax, maxT, pct, gl, gs, gc };
+  }
+
+  function selectCourse(course) {
+    selectedCourse = course;
+    document.querySelectorAll('.course-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + course).classList.add('active');
+    document.getElementById('errorBox').style.display   = 'none';
+    document.getElementById('resultCard').style.display = 'none';
+    document.getElementById('regInput').focus();
+    if (!courseData[course]) loadSheetData(course).catch(() => {});
+  }
+
+  function loadSheetData(course) {
+    return new Promise((resolve, reject) => {
+      const id = SHEETS[course];
+      if (!id || id.includes('HERE')) { reject('no id'); return; }
+      const cbName = '__gviz_' + Date.now();
+      const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:json;responseHandler:${cbName}`;
+      const script = document.createElement('script');
+      const timer  = setTimeout(() => { cleanup(); reject('timeout'); }, 12000);
+      function cleanup() { clearTimeout(timer); delete window[cbName]; if(script.parentNode) script.parentNode.removeChild(script); }
+      window[cbName] = resp => {
+        cleanup();
+        try {
+          const cols = resp.table.cols.map(c => (c.label || c.id || '').trim());
+          courseData[course] = resp.table.rows
+            .filter(r => r && r.c && r.c.some(cell => cell && cell.v != null && cell.v !== ''))
+            .map(r => {
+              const obj = {};
+              cols.forEach((col, i) => {
+                const cell = r.c ? r.c[i] : null;
+                obj[col] = (cell != null && cell.v != null) ? String(cell.v).trim() : '';
+              });
+              return obj;
+            });
+          resolve();
+        } catch(e) { reject('parse'); }
+      };
+      script.src = url;
+      script.onerror = () => { cleanup(); reject('network'); };
+      document.head.appendChild(script);
+    });
+  }
+
+  async function loadLogoBase64() {
+    if (logoBase64) return logoBase64;
+    for (const src of [`https://drive.google.com/thumbnail?id=${LOGO_ID}&sz=w400`, `https://lh3.googleusercontent.com/d/${LOGO_ID}=w400`]) {
+      const r = await tryLoadImage(src);
+      if (r) { logoBase64 = r; return r; }
+    }
+    return null;
+  }
+
+  function tryLoadImage(src) {
+    return new Promise(resolve => {
+      const img = new Image(); img.crossOrigin = 'anonymous';
+      const t = setTimeout(() => resolve(null), 6000);
+      img.onload = () => { clearTimeout(t); try { const c=document.createElement('canvas'); c.width=img.naturalWidth||200; c.height=img.naturalHeight||200; c.getContext('2d').drawImage(img,0,0); resolve(c.toDataURL('image/png')); } catch { resolve(null); } };
+      img.onerror = () => { clearTimeout(t); resolve(null); };
+      img.src = src + (src.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+    });
+  }
+
+  async function searchResult() {
+    const reg = document.getElementById('regInput').value.trim();
+    document.getElementById('errorBox').style.display   = 'none';
+    document.getElementById('resultCard').style.display = 'none';
+    if (!selectedCourse) { showErr('⚠️ Please select a course first — Commerce or Science.'); return; }
+    if (!reg)            { shakeInput(); return; }
+    setLoading(true);
+    if (!courseData[selectedCourse]) {
+      try { await loadSheetData(selectedCourse); }
+      catch { showErr('⚠️ Could not connect. Make sure the sheet is shared as <b>Anyone with link → Viewer</b>.'); setLoading(false); return; }
+    }
+    setLoading(false);
+    const norm  = reg.replace(/\.0+$/, '').toLowerCase();
+    const found = courseData[selectedCourse].find(row =>
+      String(Object.values(row)[0]).trim().replace(/\.0+$/, '').toLowerCase() === norm
+    );
+    if (!found) { document.getElementById('errorBox').style.display = 'block'; return; }
+    currentStudent = found;
+    renderResult(found);
+  }
+
+  function renderResult(s) {
+    const st      = calcStats(s);
+    const hasPrac = st.subData.some(d => d.hasPrac);
+    const logo    = logoBase64 || `https://drive.google.com/thumbnail?id=${LOGO_ID}&sz=w200`;
+    const cn      = selectedCourse === 'commerce' ? '📊 Commerce' : '🔬 Science';
+
+    const thead = `<thead><tr>
+      <th class="th-subj">Subject</th>
+      <th class="th-theory">📘 Theory</th>
+      ${hasPrac ? '<th class="th-prac">🔬 Internals</th>' : ''}
+    </tr></thead>`;
+
+    const tbody = '<tbody>' + st.subData.map(d => {
+      const tPass = d.tv >= Math.round(d.tMax * 0.35);
+      const pPass = d.pMax > 0 ? d.pv >= Math.round(d.pMax * 0.35) : false;
+      return `<tr>
+        <td class="td-subj">${d.name}</td>
+        <td class="td-theory ${tPass ? 'mark-pass' : 'mark-fail'}">${d.tv}</td>
+        ${hasPrac ? `<td class="td-prac ${d.hasPrac ? (pPass?'mark-pass':'mark-fail') : 'mark-dash'}">${d.hasPrac ? d.pv : '—'}</td>` : ''}
+      </tr>`;
+    }).join('') + '</tbody>';
+
+    document.getElementById('resultCard').innerHTML = `
+      <div class="result-top">
+        <div class="trophy"><img src="${logo}" alt="Logo" onerror="this.style.display='none'"></div>
+        <h3>${st.nameKey ? s[st.nameKey] : 'Result Card'}</h3>
+        <div>
+          <span class="reg-tag">REG NO: ${s[st.regKey]}</span>
+          <span class="course-tag">${cn}</span>
         </div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-sec-title">Subject-wise Marks</div>
+        <table class="marks-tbl">${thead}${tbody}</table>
+      </div>
+      <div class="rc-totals">
+        <div class="rc-tot"><div class="t-lbl">Total Marks</div><div class="t-val t-blue">${st.total} / ${st.maxT}</div></div>
+        <div class="tot-divider"></div>
+        <div class="rc-tot"><div class="t-lbl">Percentage</div><div class="t-val t-green">${st.pct.toFixed(2)}%</div></div>
+        <div class="tot-divider"></div>
+        <div class="rc-tot"><div class="t-lbl">Grade</div><div class="t-val" style="color:${st.gc}">${st.gs}</div></div>
+      </div>
+      <div class="rc-grade-bar" style="color:${st.gc}">${st.gl}</div>
+      <button class="rc-dl-btn" onclick="downloadPDF()">⬇️ Download Result Card (PDF)</button>
+    `;
+    document.getElementById('resultCard').style.display = 'block';
+    document.getElementById('resultCard').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
 
-        <!-- About Me Section -->
-        <div class="profile">
-            <img src="puni2.png" alt="Punith Ramesh">
-            <h3>Punith Ramesh</h3>
-            <p><strong>Lecturer in Computer Science</strong></p>
-            
-            <div class="highlight">💡 Passionate Educator shaping future minds in Computer Science</div>
-            <div class="highlight">🚀 Skilled in Web Development, Java, and Emerging Technologies</div>
-            <div class="highlight">🎯 Dedicated to innovative teaching & student success</div>
-            <div class="highlight">📘 MCA Graduate with expertise in Software Engineering</div>
-        </div>
+  async function downloadPDF() {
+    const s = currentStudent;
+    if (!s) return;
+    const btn = document.querySelector('.rc-dl-btn');
+    btn.textContent = '⏳ Generating PDF…'; btn.disabled = true;
 
-        <!-- Student Contribution Section -->
-        <div class="profile">
-            <h3>Special Thanks To</h3>
-            <p><strong>Students who contributed to this project:</strong></p>
-            
-            <div class="highlight">👨‍🎓 Tharun Gowda B S</div>
-            <div class="highlight">👨‍🎓 Dheeraj S Kumar</div>
-        </div>
+    const st      = calcStats(s);
+    const hasPrac = st.subData.some(d => d.hasPrac);
+    const cn      = selectedCourse === 'commerce' ? 'COMMERCE' : 'SCIENCE';
+    const sname   = st.nameKey ? s[st.nameKey] : 'Student';
+    const reg     = s[st.regKey];
+    const dateStr = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+    const logoSrc = await loadLogoBase64();
 
-        <h2>Project Introduction</h2>
-        <center>
-            <div class="video-container">
-                <p><strong>Explanation by Punith R:</strong></p>
-                <video controls>
-                    <source src="promo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </center>
+    const pdfRows = st.subData.map(d => {
+      const tPass = d.tv >= Math.round(d.tMax * 0.35);
+      const pPass = d.pMax > 0 ? d.pv >= Math.round(d.pMax * 0.35) : false;
+      return `<tr>
+        <td class="pmd-s">${d.name} <small style="color:#475569;font-size:.6rem">(T/${d.tMax}${d.pMax?' P/'+d.pMax:''})</small></td>
+        <td class="pmd-t ${tPass?'pass':'fail'}">${d.tv}</td>
+        ${hasPrac ? `<td class="pmd-p ${d.hasPrac?(pPass?'pass':'fail'):'dash'}">${d.hasPrac?d.pv:'—'}</td>` : ''}
+      </tr>`;
+    }).join('');
+
+    const subtotalsHtml = hasPrac ? `
+      <div class="pdf-subtotals">
+        <div class="pdf-stot"><div class="pdf-stot-label">Theory Total</div><div class="pdf-stot-value" style="color:#60a5fa">${st.tSum} / ${st.tMax}</div></div>
+        <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+        <div class="pdf-stot"><div class="pdf-stot-label">INTERNALS Total</div><div class="pdf-stot-value" style="color:#a78bfa">${st.pSum} / ${st.pMax}</div></div>
+      </div>` : '';
+
+    const tpl = document.getElementById('pdfTemplate');
+    tpl.innerHTML = `
+      <div class="pdf-header">
       
-    </div>
+        <div class="pdf-emblem">${logoSrc ? `<img src="${logoSrc}" alt="Logo">` : '<span style="font-size:2rem">🎓</span>'}</div>
+        <div class="pdf-college"><span>Universal</span> Pre University College</div>
+        <div class="pdf-sub">Excellence in Education · Established 2018</div>
+        <div class="pdf-divider"></div>
+        <div class="pdf-title">Official Result Card</div>
+        <div class="pdf-course-badge">${cn}</div>
+      </div>
+      <div class="pdf-student">
+        <div class="pdf-name">${sname.toUpperCase()}</div>
+        <div><span class="pdf-regno">REG NO: ${reg}</span></div>
+      </div>
+      <div class="pdf-body">
+        <div class="pdf-section-title">Subject-wise Marks (Theory &amp; Practical)</div>
+        <table class="pdf-marks-tbl">
+          <thead><tr>
+            <th class="pmh-s">Subject</th>
+            <th class="pmh-t">Theory</th>
+            ${hasPrac ? '<th class="pmh-p">Internals</th>' : ''}
+          </tr></thead>
+          <tbody>${pdfRows}</tbody>
+        </table>
+        <div class="pdf-totals">
+          <div class="pdf-tot"><div class="pdf-tot-label">Total Marks</div><div class="pdf-tot-value tc">${st.total} / ${st.maxT}</div></div>
+          <div class="pdf-tot-divider"></div>
+          <div class="pdf-tot"><div class="pdf-tot-label">Percentage</div><div class="pdf-tot-value tp">${st.pct.toFixed(2)}%</div></div>
+          <div class="pdf-tot-divider"></div>
+          <div class="pdf-tot"><div class="pdf-tot-label">Grade</div><div class="pdf-tot-value" style="color:${st.gc}">${st.gs}</div></div>
+        </div>
+        <div class="pdf-grade" style="color:${st.gc}">${st.gl} — Grade ${st.gs} &nbsp;|&nbsp; ${st.pct.toFixed(1)}%</div>
+        ${subtotalsHtml}
+      </div>
+      <div class="pdf-footer">
+        <div class="pdf-footer-left">Date of Issue: ${dateStr}<br/>Universal PU College Result System</div>
+        <div class="pdf-footer-right">Computer-generated result.<br/>PVS.</div>
+      </div>
+      <div class="pdf-stamp"><div class="pdf-stamp-text">Punith Ramesh · CS Lecturer &amp; Developer · 9741215397</div></div>
+    `;
+    tpl.style.display = 'block';
+    try {
+      await new Promise(r => setTimeout(r, 500));
+      const canvas = await html2canvas(tpl, {
+        scale: 2, useCORS: true, allowTaint: false,
+        backgroundColor: '#0a1628', logging: false, imageTimeout: 10000,
+        onclone: doc => { if (logoSrc) doc.querySelectorAll('.pdf-emblem img').forEach(img => img.src = logoSrc); }
+      });
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+      const imgW = 210, imgH = (canvas.height * imgW) / canvas.width;
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgW, Math.min(imgH, 297));
+      pdf.save(`Result_${reg}_${sname.replace(/\s+/g,'_')}.pdf`);
+    } catch(e) { alert('PDF error: ' + e.message); }
+    tpl.style.display = 'none';
+    btn.innerHTML = '⬇️ Download Result Card (PDF)'; btn.disabled = false;
+  }
 
-    <div class="footer">
-        &copy; 2025 Universal Pre-University College. All rights reserved.
-    </div>
+  function setLoading(on) {
+    document.getElementById('spinner').style.display = on ? 'block' : 'none';
+    document.getElementById('btnText').textContent   = on ? 'Loading...' : 'VIEW MY RESULT';
+    document.getElementById('searchBtn').disabled    = on;
+  }
+  function showErr(m) { const e=document.getElementById('errorBox'); e.innerHTML=m; e.style.display='block'; }
+  function shakeInput() {
+    const i=document.getElementById('regInput');
+    i.style.animation='none'; i.getBoundingClientRect(); i.style.animation='shake .4s ease';
+    i.style.borderColor='#ef4444'; setTimeout(()=>i.style.borderColor='',1000);
+  }
 
+  window.addEventListener('load', () => { loadLogoBase64().catch(()=>{}); });
+
+  const stEl=document.getElementById('stars');
+  for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*6}s;`;stEl.appendChild(s);}
+  const pEl=document.getElementById('particles');
+  const pc=['#f5c518','#2563eb','#22c55e','#a78bfa','rgba(255,255,255,0.6)'];
+  for(let j=0;j<20;j++){const p=document.createElement('div');p.className='particle';const ps=Math.random()*7+3;p.style.cssText=`width:${ps}px;height:${ps}px;left:${Math.random()*100}%;background:${pc[Math.floor(Math.random()*pc.length)]};animation-duration:${9+Math.random()*12}s;animation-delay:${Math.random()*12}s;`;pEl.appendChild(p);}
+
+
+
+// ── Admission Popup ───────────────────────────────────────────────────
+  function closePopup() {
+    const p = document.getElementById('admissionPopup');
+    p.classList.add('closing');           // trigger fade-out animation
+    setTimeout(() => {
+      p.classList.add('hidden');          // fully hide after animation
+      p.classList.remove('closing');
+      document.body.style.overflow = '';  // restore scroll
+    }, 320);
+  }
+  // Prevent background scroll while popup open
+  document.body.style.overflow = 'hidden';
+
+  // Close on overlay click (outside box)
+  document.getElementById('admissionPopup').addEventListener('click', function(e) {
+    if (e.target === this) { this.style.display='none'; document.body.style.overflow=''; }
+  });
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') { document.getElementById('admissionPopup').style.display='none'; document.body.style.overflow=''; }
+  });
+
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
